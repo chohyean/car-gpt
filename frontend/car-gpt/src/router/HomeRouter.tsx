@@ -1,15 +1,37 @@
-import { Stack } from "@mui/material";
+import { Stack, Typography } from "@mui/material";
 import SideBar from "components/SideBar";
 import Home from "pages/Home";
-import { Routes, Route } from "react-router-dom";
+import Setting from "pages/Setting";
+import { Routes, Route, useLocation } from "react-router-dom";
 
 function HomeRouter() {
+  const { pathname } = useLocation();
+  const titleInfoList = [
+    {
+      pathname: "/",
+      title: "회원목록",
+    },
+    {
+      pathname: "/setting",
+      title: "설정",
+    },
+  ];
+
   return (
-    <Stack>
+    <Stack direction="row">
       <SideBar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-      </Routes>
+      <Stack sx={{ width: "100%", p: 4 }}>
+        <Typography sx={{ mb: 4 }} variant="h4">
+          {
+            titleInfoList.find((titleInfo) => titleInfo.pathname === pathname)!
+              .title
+          }
+        </Typography>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/setting" element={<Setting />} />
+        </Routes>
+      </Stack>
     </Stack>
   );
 }

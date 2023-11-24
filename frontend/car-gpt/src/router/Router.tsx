@@ -6,6 +6,7 @@ import HomeRouter from "./HomeRouter";
 
 function Router() {
   const isLogin = useRecoilValue(atomIsLogin);
+
   return (
     <BrowserRouter>{!isLogin ? <LoginRouter /> : <HomeRouter />}</BrowserRouter>
   );
