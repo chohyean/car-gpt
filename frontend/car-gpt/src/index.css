@@ -34,3 +34,7 @@ code {
   stroke-linejoin: round;
   stroke-linecap: round;
 }
+
+#container {
+  margin: 10px;
+}
