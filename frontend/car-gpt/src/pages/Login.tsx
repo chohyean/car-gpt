@@ -1,3 +1,8 @@
+/*
+시작 페이지
+@author 조혜안
+@since 2023.11.05
+*/
 import { Button, Grid } from "@mui/material";
 import logoText from "assets/logo_text2.png";
 import { motion } from "framer-motion";
@@ -62,7 +67,11 @@ export default function Login() {
           </Grid>
         </Grid>
         <Grid item xs={12} sx={{ marginTop: "4vh", textAlign: "center" }}>
-          <Button variant="contained" onClick={() => setIsLogin(true)}>
+          <Button
+            variant="contained"
+            sx={{ width: "250px" }}
+            onClick={() => setIsLogin(true)}
+          >
             시작하기
           </Button>
         </Grid>
