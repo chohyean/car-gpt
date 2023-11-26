@@ -12,16 +12,21 @@ import CsmrInfoType from "types/CsmrInfoType";
 
 import { http } from "api/http";
 import MailModal from "components/MailModal";
+import dummyCsmrInfoList from "api/dummyCsmrInfoList";
 
 export default function Home() {
   const [csmrInfoList, setCsmrInfoList] = useState<CsmrInfoType[]>([]);
 
   // 전체 회원 목록 조회
   async function getCustomers() {
-    const response = await http.get(`/customers`);
+    //axios 요청
+    /*const response = await http.get(`/customers`);
     console.log("회원목록 받아오기");
     console.log(response.data);
-    setCsmrInfoList(response.data);
+    setCsmrInfoList(response.data);*/
+    //dummy 요청
+    const data = dummyCsmrInfoList();
+    setCsmrInfoList(data);
   }
 
   useEffect(() => {
@@ -34,8 +39,8 @@ export default function Home() {
       <Stack>
         <CsmrTable csmrInfoList={csmrInfoList} />
       </Stack>
-      {/* <CsmrModal /> */}
-      {/* <MailModal /> */}
+      <CsmrModal />
+      <MailModal />
     </div>
   );
 }

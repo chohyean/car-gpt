@@ -15,46 +15,21 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { useSetRecoilState } from "recoil";
-import { atomIsCsmrModal } from "recoil/atomIsCsmrModal";
-import { atomIsMailModal } from "recoil/atomIsMailModal";
-import { atomSelectedCsmr } from "recoil/atomSelectedCsmr";
-import CsmrDetailInfoType from "types/CsmrDetailInfoType";
 import { Mail } from "@mui/icons-material";
 import { Chip, IconButton } from "@mui/material";
-import dummyCsmrDetailInfoList from "api/dummyCsmrDetailInfoList";
-import MailModal from "./MailModal";
-import CsmrModal from "./CsmrModal";
+import { useSetRecoilState } from "recoil";
+import { atomIsCsmrModal } from "recoil/atomIsCsmrModal";
+import { atomSelectedCsmr } from "recoil/atomSelectedCsmr";
+import { atomIsMailModal } from "recoil/atomIsMailModal";
 
 interface CsmrTableProps {
   csmrInfoList: CsrmrInfoType[];
 }
 
 const CsmrTable = ({ csmrInfoList }: CsmrTableProps) => {
-  const setSelectedCsmr = useSetRecoilState(atomSelectedCsmr);
   const setIsCsmrModal = useSetRecoilState(atomIsCsmrModal);
   const setIsMailModal = useSetRecoilState(atomIsMailModal);
-
-  const [csmrDetailInfoList, setCsmrDetailInfoList] = useState<
-    CsmrDetailInfoType[]
-  >([]);
-
-  async function getCustomer() {
-    const data = dummyCsmrDetailInfoList();
-    setCsmrDetailInfoList(data);
-    console.log("민아러");
-    console.log(data);
-
-    // const response = await http.get(`/customers/${csmrMgmtNo}`);
-    // console.log("회원상세정보 받아오기");
-    // console.log(response.data);
-    // setCsmrDetailInfoList(response.data);
-  }
-
-  useEffect(() => {
-    console.log("고객들어옴");
-    // getCustomer();
-  }, [setSelectedCsmr]);
+  const setSelectedCsmr = useSetRecoilState(atomSelectedCsmr);
 
   const columns = [
     "고객관리번호",
@@ -66,8 +41,6 @@ const CsmrTable = ({ csmrInfoList }: CsmrTableProps) => {
 
   return (
     <TableContainer component={Paper}>
-      <CsmrModal csmrDetailInfoList={csmrDetailInfoList} />
-      <MailModal />
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         {/*테이블 컬럼*/}
         <TableHead>
@@ -91,8 +64,6 @@ const CsmrTable = ({ csmrInfoList }: CsmrTableProps) => {
               onClick={() => {
                 setIsCsmrModal(true);
                 setSelectedCsmr(csmrInfo.csmrMgmtNo);
-
-                console.log("로우클릭");
               }}
             >
               <TableCell align="center">{csmrInfo.csmrMgmtNo}</TableCell>

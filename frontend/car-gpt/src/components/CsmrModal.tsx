@@ -4,26 +4,14 @@
 @since 2023.11.25
 */
 
-import {
-  Box,
-  Divider,
-  Grid,
-  ListItem,
-  ListItemText,
-  Modal,
-  Typography,
-} from "@mui/material";
-import dummyCsmrDetailInfoList from "api/dummyCsmrDetailInfoList";
-import { http } from "api/http";
+import { CssRounded } from "@mui/icons-material";
+import { Box, Modal } from "@mui/material";
+import dummyCsmrDetailInfo from "api/dummyCsmrDetailInfo";
 import { useEffect, useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { atomIsCsmrModal } from "recoil/atomIsCsmrModal";
 import { atomSelectedCsmr } from "recoil/atomSelectedCsmr";
 import CsmrDetailInfoType from "types/CsmrDetailInfoType";
-
-interface CsmrModalProps {
-  csmrDetailInfoList: CsmrDetailInfoType[];
-}
 
 const modalStyle = {
   position: "absolute" as "absolute",
@@ -38,30 +26,23 @@ const modalStyle = {
   p: 3,
 };
 
-export default function CsmrModal({ csmrDetailInfoList }: CsmrModalProps) {
+export default function CsmrModal() {
   const csmrMgmtNo = useRecoilValue(atomSelectedCsmr);
   const [isCsmrModal, setIsCsmrModal] = useRecoilState(atomIsCsmrModal);
+  console.log(csmrMgmtNo);
 
-  // const [csmrDetailInfoList, setCsmrDetailInfoList] = useState<
-  //   CsmrDetailInfoType[]
-  // >([]);
+  const [csmrDetailInfo, setCsmrDetailInfo] = useState<CsmrDetailInfoType>();
 
-  // async function getCustomer() {
-  //   const data = dummyCsmrDetailInfoList();
-  //   setCsmrDetailInfoList(data);
-  //   console.log("민아러");
-  //   console.log(data);
+  async function getCustomer() {
+    const data = dummyCsmrDetailInfo();
+    setCsmrDetailInfo(data);
+    console.log("민아러");
+    console.log(data);
+  }
 
-  //   // const response = await http.get(`/customers/${csmrMgmtNo}`);
-  //   // console.log("회원상세정보 받아오기");
-  //   // console.log(response.data);
-  //   // setCsmrDetailInfoList(response.data);
-  // }
-
-  // useEffect(() => {
-  //   console.log(csmrMgmtNo);
-  //   getCustomer();
-  // }, [csmrMgmtNo]);
+  useEffect(() => {
+    csmrMgmtNo && getCustomer();
+  }, [csmrMgmtNo]);
 
   return (
     <Modal
